@@ -20,11 +20,11 @@ export function LanguageSwitch({ className }: { className?: string }) {
         onClick={() => setLang("es")}
         aria-pressed={lang === "es"}
         className={cn(
-          "px-1.5 py-0.5 transition-colors",
+          "inline-flex items-center gap-1 px-1.5 py-0.5 transition-colors",
           lang === "es" ? "text-ink" : "text-muted hover:text-ink"
         )}
       >
-        ES
+        <span aria-hidden="true">🇪🇸</span> ES
       </button>
       <span className="text-line" aria-hidden="true">
         |
@@ -34,11 +34,11 @@ export function LanguageSwitch({ className }: { className?: string }) {
         onClick={() => setLang("en")}
         aria-pressed={lang === "en"}
         className={cn(
-          "px-1.5 py-0.5 transition-colors",
+          "inline-flex items-center gap-1 px-1.5 py-0.5 transition-colors",
           lang === "en" ? "text-ink" : "text-muted hover:text-ink"
         )}
       >
-        EN
+        <span aria-hidden="true">🇺🇸</span> EN
       </button>
     </div>
   );

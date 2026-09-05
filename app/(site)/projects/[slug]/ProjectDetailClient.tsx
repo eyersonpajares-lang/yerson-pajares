@@ -4,18 +4,25 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import type { Project } from "@/types/content";
-import { getAdjacentProjects } from "@/lib/data/projects";
-import { getRelatedContent } from "@/lib/data/related";
+import type { RelatedItem } from "@/lib/data/related";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowGlyph } from "@/components/ui/ArrowGlyph";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { cn } from "@/lib/utils";
 
-export function ProjectDetailClient({ project }: { project: Project }) {
+export function ProjectDetailClient({
+  project,
+  prev,
+  next,
+  related,
+}: {
+  project: Project;
+  prev: Project | null;
+  next: Project | null;
+  related: RelatedItem[];
+}) {
   const { t, lang, pick, pickList } = useLanguage();
-  const { prev, next } = getAdjacentProjects(project.slug);
-  const related = getRelatedContent(project);
   const [activeKey, setActiveKey] = useState<string>(project.sections[0]?.key ?? "");
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
@@ -90,7 +97,12 @@ export function ProjectDetailClient({ project }: { project: Project }) {
         </Reveal>
 
         <Reveal delay={80} className="mt-10">
-          <MediaFrame index="01" alt={project.title} className="aspect-[16/9] w-full" />
+          <MediaFrame
+            src={project.cover}
+            index="01"
+            alt={project.title}
+            className="aspect-[16/9] w-full"
+          />
         </Reveal>
 
         <div className="mt-16 grid gap-16 md:grid-cols-12 md:gap-8">

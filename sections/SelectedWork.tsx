@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { selectedWorkProjects } from "@/lib/data/projects";
+import type { Project } from "@/types/content";
 import { Container } from "@/components/ui/Container";
 import { Kicker } from "@/components/ui/Kicker";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { ArrowGlyph } from "@/components/ui/ArrowGlyph";
 
-export function SelectedWork() {
+export function SelectedWork({ projects }: { projects: Project[] }) {
   const { t, pick } = useLanguage();
 
   return (
@@ -28,7 +28,7 @@ export function SelectedWork() {
         </Reveal>
 
         <div className="mt-14 divide-y divide-line border-t border-line">
-          {selectedWorkProjects().map((item, i) => {
+          {projects.map((item, i) => {
             const href = item.hasDetail ? `/projects/${item.slug}` : undefined;
             const content = (
               <>

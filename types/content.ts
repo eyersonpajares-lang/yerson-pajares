@@ -67,6 +67,7 @@ export type ProjectSection = {
 };
 
 export type Project = {
+  id: string;
   slug: string;
   type: ProjectType;
   categories: ProjectCategory[];

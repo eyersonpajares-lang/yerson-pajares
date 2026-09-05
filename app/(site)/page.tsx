@@ -10,12 +10,18 @@ import { Vision } from "@/sections/Vision";
 import { BeyondProjects } from "@/sections/BeyondProjects";
 import { Education } from "@/sections/Education";
 import { Contact } from "@/sections/Contact";
+import { getPublicProjects } from "@/lib/supabase/queries/projects";
 
-export default function Home() {
+export default async function Home() {
+  const projects = await getPublicProjects();
+  const selectedWork = projects
+    .filter((p) => p.type === "selected-work")
+    .sort((a, b) => a.order - b.order);
+
   return (
     <>
       <Hero />
-      <SelectedWork />
+      <SelectedWork projects={selectedWork} />
       <Now />
       <Experience />
       <Capabilities />

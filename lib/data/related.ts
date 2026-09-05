@@ -1,5 +1,4 @@
 import type { Project, ProjectCategory, IdeaArticle } from "@/types/content";
-import { detailProjects } from "./projects";
 import { ideas } from "./ideas";
 
 export type RelatedItem =
@@ -27,14 +26,20 @@ function keywordsFor(project: Project): string[] {
  * keywords / tags. This is the seam the future Digital Garden / Work Log
  * cross-links (section 20 of the brief) will plug into: swap this for a
  * CMS-authored `relatedSlugs` list without touching any component.
+ * `allProjects` is passed in (rather than fetched here) so callers reuse
+ * a single Supabase query instead of each related lookup re-fetching.
  */
-export function getRelatedContent(project: Project, limit = 3): RelatedItem[] {
+export function getRelatedContent(
+  project: Project,
+  allProjects: Project[],
+  limit = 3
+): RelatedItem[] {
   const keywords = keywordsFor(project);
   const matches = (candidateKeywords: string[]) =>
     candidateKeywords.some((k) => keywords.includes(k.toLowerCase()));
 
-  const relatedProjects = detailProjects()
-    .filter((p) => p.slug !== project.slug)
+  const relatedProjects = allProjects
+    .filter((p) => p.hasDetail && p.slug !== project.slug)
     .filter((p) => matches(keywordsFor(p)))
     .map((p): RelatedItem => ({ kind: "project", project: p }));
 

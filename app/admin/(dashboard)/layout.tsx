@@ -22,7 +22,12 @@ export default async function AdminDashboardLayout({
         <div className="flex items-center justify-between md:block">
           <p className="font-display text-lg tracking-tight">Admin</p>
           <nav className="hidden md:mt-8 md:flex md:flex-col md:gap-1">
-            <span className="border-l-2 border-ink pl-3 text-sm">Dashboard</span>
+            <Link href="/admin" className="pl-3 text-sm hover:text-accent">
+              Dashboard
+            </Link>
+            <Link href="/admin/projects" className="pl-3 text-sm hover:text-accent">
+              Projects
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4 text-xs text-muted md:mt-10 md:flex-col md:items-start md:gap-3">

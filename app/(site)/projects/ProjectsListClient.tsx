@@ -3,11 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import {
-  selectedWorkProjects,
-  labProjects,
-  ventureProjects,
-} from "@/lib/data/projects";
 import { nowItems } from "@/lib/data/now";
 import type { Project, ProjectCategory } from "@/types/content";
 import { Container } from "@/components/ui/Container";
@@ -29,14 +24,23 @@ const FILTER_ORDER: FilterKey[] = [
   "ventures",
 ];
 
-export function ProjectsListClient() {
+export function ProjectsListClient({ projects }: { projects: Project[] }) {
   const { t } = useLanguage();
   const [filter, setFilter] = useState<FilterKey>("all");
   const [fading, setFading] = useState(false);
 
-  const allSelected = useMemo(() => selectedWorkProjects(), []);
-  const allLab = useMemo(() => labProjects(), []);
-  const allVentures = useMemo(() => ventureProjects(), []);
+  const allSelected = useMemo(
+    () => projects.filter((p) => p.type === "selected-work").sort((a, b) => a.order - b.order),
+    [projects]
+  );
+  const allLab = useMemo(
+    () => projects.filter((p) => p.type === "lab").sort((a, b) => a.order - b.order),
+    [projects]
+  );
+  const allVentures = useMemo(
+    () => projects.filter((p) => p.type === "venture").sort((a, b) => a.order - b.order),
+    [projects]
+  );
 
   function selectFilter(next: FilterKey) {
     if (next === filter) return;
@@ -62,8 +66,9 @@ export function ProjectsListClient() {
       <Container>
         <Reveal>
           <Kicker>
-            {t.projectsPage.kicker} · {String(1).padStart(2, "0")}—
-            {String(total).padStart(2, "0")}
+            {total > 0
+              ? `${t.projectsPage.kicker} · 01—${String(total).padStart(2, "0")}`
+              : t.projectsPage.kicker}
           </Kicker>
           <h1 className="mt-4 max-w-2xl font-display text-4xl tracking-tight md:text-6xl">
             {t.projectsPage.title}
@@ -206,7 +211,12 @@ function FeaturedProject({
 
   const inner = (
     <div className="grid gap-8 md:grid-cols-12 md:items-center md:gap-12">
-      <MediaFrame index="01" alt={project.title} className="aspect-[4/3] md:col-span-7" />
+      <MediaFrame
+        src={project.cover}
+        index="01"
+        alt={project.title}
+        className="aspect-[4/3] md:col-span-7"
+      />
       <div className="md:col-span-5">
         <p className="font-mono text-xs uppercase tracking-wide text-accent">
           {project.category}
@@ -303,6 +313,7 @@ function VentureRow({
 
   const media = (
     <MediaFrame
+      src={project.cover}
       index={index}
       alt={project.title}
       className="aspect-[16/10] md:col-span-6"

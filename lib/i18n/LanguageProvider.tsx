@@ -29,8 +29,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("es");
 
   useEffect(() => {
+    // Reads localStorage only after mount (deliberately, so the server-
+    // rendered "es" default matches the client's first paint and hydrates
+    // cleanly) — the resulting one-time re-render is expected here.
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "es" || stored === "en") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLangState(stored);
       return;
     }

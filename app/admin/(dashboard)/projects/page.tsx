@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAdminProjects } from "@/lib/supabase/queries/projects";
 import { togglePublishedAction } from "./actions";
+import { DeleteProjectButton } from "./DeleteProjectButton";
 
 export const metadata: Metadata = {
   title: "Projects — Admin",
@@ -70,6 +71,7 @@ export default async function AdminProjectsPage() {
               >
                 Edit
               </Link>
+              <DeleteProjectButton id={p.id} title={p.title} />
             </div>
           </div>
         ))}

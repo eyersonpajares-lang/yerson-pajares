@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import type { Project, ProjectCategory, ProjectSection, ProjectSectionKey, ProjectType } from "@/types/content";
-import { deleteProjectAction } from "./actions";
 
 const TYPE_OPTIONS: { value: ProjectType; label: string }[] = [
   { value: "selected-work", label: "Selected Work" },
@@ -301,23 +300,13 @@ export function ProjectForm({
         </div>
       </div>
 
-      <div className="flex items-center gap-6 border-t border-line pt-8">
+      <div className="border-t border-line pt-8">
         <button
           type="submit"
           className="border border-ink bg-ink px-5 py-3 text-sm font-medium tracking-wide text-paper transition-colors hover:bg-ink-soft"
         >
           Save
         </button>
-        {project && (
-          <button
-            type="submit"
-            formAction={deleteProjectAction.bind(null, project.id)}
-            formNoValidate
-            className="text-sm text-muted hover:text-accent"
-          >
-            Delete project
-          </button>
-        )}
       </div>
     </form>
   );

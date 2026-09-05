@@ -1,14 +1,38 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import type { ProjectCaseStudy } from "@/types/content";
+import type { Project } from "@/types/content";
+import { getAdjacentProjects } from "@/lib/data/projects";
+import { getRelatedContent } from "@/lib/data/related";
 import { Container } from "@/components/ui/Container";
-import { Kicker } from "@/components/ui/Kicker";
 import { Reveal } from "@/components/ui/Reveal";
+import { ArrowGlyph } from "@/components/ui/ArrowGlyph";
+import { MediaFrame } from "@/components/ui/MediaFrame";
+import { cn } from "@/lib/utils";
 
-export function ProjectDetailClient({ project }: { project: ProjectCaseStudy }) {
+export function ProjectDetailClient({ project }: { project: Project }) {
   const { t, lang, pick, pickList } = useLanguage();
+  const { prev, next } = getAdjacentProjects(project.slug);
+  const related = getRelatedContent(project);
+  const [activeKey, setActiveKey] = useState<string>(project.sections[0]?.key ?? "");
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((e) => e.isIntersecting);
+        if (visible?.target instanceof HTMLElement) {
+          const key = visible.target.dataset.sectionKey;
+          if (key) setActiveKey(key);
+        }
+      },
+      { rootMargin: "-15% 0px -70% 0px" }
+    );
+    Object.values(sectionRefs.current).forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [project.slug]);
 
   return (
     <div className="py-16 md:py-24">
@@ -16,117 +40,230 @@ export function ProjectDetailClient({ project }: { project: ProjectCaseStudy }) 
         <Reveal>
           <Link
             href="/projects"
-            className="font-mono text-xs uppercase tracking-wide text-muted hover:text-ink"
+            className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-muted hover:text-ink"
           >
-            ← {t.nav.projects}
+            <ArrowGlyph className="inline-block transition-transform duration-200 ease-out group-hover:-translate-x-0.5">
+              ←
+            </ArrowGlyph>{" "}
+            {t.projectsPage.backToProjects}
           </Link>
         </Reveal>
 
-        <Reveal delay={40} className="mt-8">
-          <Kicker>{project.category}</Kicker>
-          <h1 className="mt-4 font-display text-5xl tracking-tight md:text-7xl">
+        <Reveal delay={40} className="mt-8 max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-wide text-accent">
+            {project.category}
+            {project.year && ` · ${project.year}`}
+          </p>
+          <h1 className="mt-4 font-display text-4xl tracking-tight md:text-6xl">
             {project.title}
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-ink-soft">{pick(project.subtitle)}</p>
+          {project.subtitle && (
+            <p className="mt-4 text-lg text-ink-soft">{pick(project.subtitle)}</p>
+          )}
 
-          <dl className="mt-10 grid max-w-lg grid-cols-3 gap-6 border-y border-line py-6">
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wide text-muted">
-                {lang === "es" ? "Estado" : "Status"}
-              </dt>
-              <dd className="mt-1 text-sm">{pick(project.status)}</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wide text-muted">
-                {lang === "es" ? "Año" : "Year"}
-              </dt>
-              <dd className="mt-1 text-sm">{project.year}</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wide text-muted">
-                {lang === "es" ? "Rol" : "Role"}
-              </dt>
-              <dd className="mt-1 text-sm">{pick(project.role)}</dd>
-            </div>
+          <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-y border-line py-5">
+            {project.status && (
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-wide text-muted">
+                  {lang === "es" ? "Estado" : "Status"}
+                </dt>
+                <dd className="mt-1 text-sm">{pick(project.status)}</dd>
+              </div>
+            )}
+            {project.role && (
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-wide text-muted">
+                  {lang === "es" ? "Rol" : "Role"}
+                </dt>
+                <dd className="mt-1 text-sm">{pick(project.role)}</dd>
+              </div>
+            )}
+            {project.client && (
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-wide text-muted">
+                  {lang === "es" ? "Cliente" : "Client"}
+                </dt>
+                <dd className="mt-1 text-sm">{project.client}</dd>
+              </div>
+            )}
           </dl>
         </Reveal>
 
+        <Reveal delay={80} className="mt-10">
+          <MediaFrame index="01" alt={project.title} className="aspect-[16/9] w-full" />
+        </Reveal>
+
         <div className="mt-16 grid gap-16 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-8 md:col-start-1">
-            <Reveal>
-              <p className="text-xl leading-relaxed text-ink-soft">{pick(project.intro)}</p>
-            </Reveal>
+          <div className="flex flex-col gap-16 md:col-span-8">
+            {project.sections.map((section) => (
+              <section
+                key={section.key}
+                id={section.key}
+                data-section-key={section.key}
+                ref={(el) => {
+                  sectionRefs.current[section.key] = el;
+                }}
+                className="scroll-mt-28"
+              >
+                <Reveal>
+                  <h2 className="font-display text-2xl tracking-tight">
+                    {pick(section.title)}
+                  </h2>
 
-            <Reveal delay={60} className="mt-14">
-              <h2 className="font-display text-2xl tracking-tight">
-                {lang === "es" ? "El problema" : "The problem"}
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-ink-soft">
-                {pick(project.problem)}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {project.problemPoints.map((point) => (
-                  <span
-                    key={point}
-                    className="border border-line px-3 py-1 font-mono text-xs uppercase tracking-wide text-muted"
-                  >
-                    {point}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
+                  {section.body && (
+                    <div className="mt-4 flex flex-col gap-4">
+                      {pick(section.body)
+                        .split("\n\n")
+                        .map((para, i) => (
+                          <p key={i} className="text-base leading-relaxed text-ink-soft">
+                            {para}
+                          </p>
+                        ))}
+                    </div>
+                  )}
 
-            <Reveal delay={90} className="mt-14">
-              <h2 className="font-display text-2xl tracking-tight">
-                {lang === "es" ? "La idea" : "The idea"}
-              </h2>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                {pickList(project.idea).map((step, i, arr) => (
-                  <div key={step} className="flex items-center gap-3 sm:gap-4">
-                    <span className="border border-ink px-4 py-2 text-sm font-medium">
-                      {step}
-                    </span>
-                    {i < arr.length - 1 && (
-                      <span className="text-muted" aria-hidden="true">
-                        ↓
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+                  {section.steps && (
+                    <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                      {pickList(section.steps).map((step, i, arr) => (
+                        <div key={step} className="flex items-center gap-3 sm:gap-4">
+                          <span className="border border-ink px-4 py-2 text-sm font-medium">
+                            {step}
+                          </span>
+                          {i < arr.length - 1 && (
+                            <span className="text-muted" aria-hidden="true">
+                              ↓
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {section.list &&
+                    (section.key === "role" ? (
+                      <ul className="mt-4 flex flex-col gap-2">
+                        {section.list.map((item) => (
+                          <li key={item} className="text-sm leading-relaxed text-ink-soft">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        {section.list.map((item) => (
+                          <span
+                            key={item}
+                            className="border border-line px-3 py-1 font-mono text-xs uppercase tracking-wide text-muted"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    ))}
+                </Reveal>
+              </section>
+            ))}
           </div>
 
-          <Reveal delay={120} className="md:col-span-4">
-            <div className="flex flex-col gap-10 md:sticky md:top-28">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-wide text-muted">
-                  {lang === "es" ? "Tecnología" : "Tech"}
-                </p>
-                <ul className="mt-3 flex flex-col gap-2">
-                  {project.tech.map((item) => (
-                    <li key={item} className="text-sm text-ink-soft">
-                      {item}
-                    </li>
+          {project.sections.length > 1 && (
+            <div className="md:col-span-4">
+              <details className="border border-line md:hidden">
+                <summary className="cursor-pointer px-4 py-3 font-mono text-xs uppercase tracking-wide text-muted">
+                  {t.projectsPage.onThisPage}
+                </summary>
+                <nav className="flex flex-col gap-1 px-4 pb-4">
+                  {project.sections.map((s) => (
+                    <a key={s.key} href={`#${s.key}`} className="py-1.5 text-sm text-ink-soft">
+                      {pick(s.title)}
+                    </a>
                   ))}
-                </ul>
-              </div>
+                </nav>
+              </details>
 
-              <div>
-                <p className="font-mono text-xs uppercase tracking-wide text-muted">
-                  {lang === "es" ? "Explorando" : "Exploring"}
+              <nav className="sticky top-28 hidden flex-col gap-2 border-l border-line pl-5 md:flex">
+                <p className="mb-2 font-mono text-xs uppercase tracking-wide text-muted">
+                  {t.projectsPage.onThisPage}
                 </p>
-                <ul className="mt-3 flex flex-col gap-2">
-                  {project.exploring.map((item) => (
-                    <li key={item} className="text-sm text-ink-soft">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                {project.sections.map((s) => (
+                  <a
+                    key={s.key}
+                    href={`#${s.key}`}
+                    className={cn(
+                      "text-sm transition-colors",
+                      activeKey === s.key ? "text-ink" : "text-muted hover:text-ink"
+                    )}
+                  >
+                    {pick(s.title)}
+                  </a>
+                ))}
+              </nav>
             </div>
-          </Reveal>
+          )}
         </div>
+
+        {(prev || next) && (
+          <div className="mt-20 grid gap-6 border-t border-line pt-10 sm:grid-cols-2">
+            {prev ? (
+              <Link href={`/projects/${prev.slug}`} className="group">
+                <p className="font-mono text-xs uppercase tracking-wide text-muted">
+                  ← {t.projectsPage.prevProject}
+                </p>
+                <p className="mt-2 font-display text-xl tracking-tight group-hover:text-accent">
+                  {prev.title}
+                </p>
+              </Link>
+            ) : (
+              <div />
+            )}
+            {next ? (
+              <Link href={`/projects/${next.slug}`} className="group sm:text-right">
+                <p className="font-mono text-xs uppercase tracking-wide text-muted">
+                  {t.projectsPage.nextProject} →
+                </p>
+                <p className="mt-2 font-display text-xl tracking-tight group-hover:text-accent">
+                  {next.title}
+                </p>
+              </Link>
+            ) : (
+              <div />
+            )}
+          </div>
+        )}
+
+        {related.length > 0 && (
+          <div className="mt-16 border-t border-line pt-10">
+            <p className="font-mono text-xs uppercase tracking-wide text-accent">
+              {t.projectsPage.relatedTitle}
+            </p>
+            <div className="mt-6 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+              {related.map((item) =>
+                item.kind === "project" ? (
+                  <Link
+                    key={item.project.slug}
+                    href={`/projects/${item.project.slug}`}
+                    className="group"
+                  >
+                    <p className="font-mono text-xs uppercase tracking-wide text-muted">
+                      {item.project.category}
+                    </p>
+                    <p className="mt-2 font-display text-lg tracking-tight group-hover:text-accent">
+                      {item.project.title}
+                    </p>
+                  </Link>
+                ) : (
+                  <Link key={item.idea.slug} href={`/ideas/${item.idea.slug}`} className="group">
+                    <p className="font-mono text-xs uppercase tracking-wide text-muted">
+                      {item.idea.category}
+                    </p>
+                    <p className="mt-2 font-display text-lg tracking-tight group-hover:text-accent">
+                      {pick(item.idea.title)}
+                    </p>
+                  </Link>
+                )
+              )}
+            </div>
+          </div>
+        )}
       </Container>
     </div>
   );

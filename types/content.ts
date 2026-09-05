@@ -25,32 +25,67 @@ export type Experience = {
   featured?: boolean;
 };
 
-export type SelectedWorkCard = {
-  slug: string;
-  index: string;
+/**
+ * Which section of /projects a project belongs to: the editorial
+ * "Selected Work" composition, a small "Engineering Lab" experiment,
+ * or a "Ventures" business (Solarcytec, San Roque). This is presentation
+ * placement, independent of the topical `categories` used for filtering.
+ */
+export type ProjectType = "selected-work" | "lab" | "venture";
+
+export type ProjectCategory =
+  | "project-controls"
+  | "planning"
+  | "ai-automation"
+  | "construction"
+  | "data"
+  | "ventures";
+
+export type ProjectSectionKey =
+  | "overview"
+  | "problem"
+  | "role"
+  | "process"
+  | "tools"
+  | "results"
+  | "lessons"
+  | "nextSteps";
+
+/**
+ * One optional block of a case study. `body` is free paragraph text
+ * (split on "\n\n"); `list` is a flat tag/point list; `steps` is an
+ * ordered flow (rendered with arrows, like the PCIA data pipeline).
+ * A project only renders the sections it defines — this is the shape
+ * the future CMS block editor will read/write.
+ */
+export type ProjectSection = {
+  key: ProjectSectionKey;
   title: Localized;
-  kicker: string;
-  description: Localized;
-  tags: string[];
-  href?: string;
+  body?: Localized;
+  list?: string[];
+  steps?: LocalizedList;
 };
 
-export type ProjectCaseStudy = {
+export type Project = {
   slug: string;
+  type: ProjectType;
+  categories: ProjectCategory[];
   title: string;
-  subtitle: Localized;
+  subtitle?: Localized;
   category: string;
   year: string;
-  status: Localized;
-  role: Localized;
-  intro: Localized;
-  problem: Localized;
-  problemPoints: string[];
-  idea: LocalizedList;
-  tech: string[];
-  exploring: string[];
+  status?: Localized;
+  role?: Localized;
+  client?: string;
+  cover?: string;
+  shortDescription: Localized;
+  sections: ProjectSection[];
+  tools?: string[];
   tags: string[];
   featured?: boolean;
+  order: number;
+  hasDetail?: boolean;
+  relatedSlugs?: string[];
   published: boolean;
 };
 

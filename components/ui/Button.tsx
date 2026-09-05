@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { withArrowNudge } from "./ArrowGlyph";
 
 type Variant = "primary" | "secondary" | "ghost";
 
@@ -30,10 +31,11 @@ export function Button({
 }: ButtonProps) {
   const base =
     variant === "ghost"
-      ? "inline-flex items-center gap-2 text-sm font-medium transition-colors"
-      : "inline-flex items-center gap-2 px-5 py-3 text-sm font-medium tracking-wide transition-colors";
+      ? "group inline-flex items-center gap-2 text-sm font-medium transition-colors"
+      : "group inline-flex items-center gap-2 px-5 py-3 text-sm font-medium tracking-wide transition-colors";
 
   const classes = cn(base, variants[variant], className);
+  const content = withArrowNudge(children);
 
   if (external || href.startsWith("http") || href.startsWith("mailto:")) {
     return (
@@ -44,14 +46,14 @@ export function Button({
         className={classes}
         {...props}
       >
-        {children}
+        {content}
       </a>
     );
   }
 
   return (
     <Link href={href} className={classes} {...props}>
-      {children}
+      {content}
     </Link>
   );
 }

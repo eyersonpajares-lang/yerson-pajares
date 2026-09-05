@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { settings } from "@/lib/data/settings";
-import { projectCaseStudies } from "@/lib/data/projects";
+import { detailProjects } from "@/lib/data/projects";
 import { ideas } from "@/lib/data/ideas";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -13,9 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/work-log`, changeFrequency: "daily", priority: 0.6 },
   ];
 
-  const projectRoutes: MetadataRoute.Sitemap = projectCaseStudies
-    .filter((p) => p.published)
-    .map((p) => ({ url: `${base}/projects/${p.slug}`, changeFrequency: "monthly", priority: 0.7 }));
+  const projectRoutes: MetadataRoute.Sitemap = detailProjects().map((p) => ({
+    url: `${base}/projects/${p.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
 
   const ideaRoutes: MetadataRoute.Sitemap = ideas
     .filter((i) => i.published)

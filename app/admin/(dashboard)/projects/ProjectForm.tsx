@@ -309,11 +309,14 @@ export function ProjectForm({
           Save
         </button>
         {project && (
-          <form action={deleteProjectAction.bind(null, project.id)}>
-            <button type="submit" className="text-sm text-muted hover:text-accent">
-              Delete project
-            </button>
-          </form>
+          <button
+            type="submit"
+            formAction={deleteProjectAction.bind(null, project.id)}
+            formNoValidate
+            className="text-sm text-muted hover:text-accent"
+          >
+            Delete project
+          </button>
         )}
       </div>
     </form>

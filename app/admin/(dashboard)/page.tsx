@@ -15,7 +15,6 @@ const roadmap = [
   "LinkedIn",
   "Education",
   "Media",
-  "CV",
   "Settings",
 ];
 
@@ -42,6 +41,16 @@ export default async function AdminDashboardPage() {
           className="mt-3 inline-block text-sm font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
         >
           Administrar projects →
+        </Link>
+      </div>
+
+      <div className="mt-10 border-t border-line pt-6">
+        <p className="font-mono text-xs uppercase tracking-wide text-muted">CV</p>
+        <Link
+          href="/admin/cv"
+          className="mt-3 inline-block text-sm font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
+        >
+          Subir / reemplazar CV →
         </Link>
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { useCv } from "@/lib/cv/CvProvider";
 import { settings } from "@/lib/data/settings";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +17,8 @@ const skills = [
 
 export function Hero() {
   const { t, lang } = useLanguage();
+  const cvUrls = useCv();
+  const cvHref = cvUrls[lang] ? `${cvUrls[lang]}?download` : settings.cv[lang];
 
   return (
     <section id="top" className="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
@@ -52,7 +55,7 @@ export function Hero() {
               <Button href="/#work" variant="primary">
                 {t.hero.ctaWork} →
               </Button>
-              <Button href={settings.cv[lang]} variant="secondary">
+              <Button href={cvHref} variant="secondary" external>
                 {t.hero.ctaCv} ↓
               </Button>
               <Button href="/#contact" variant="ghost">

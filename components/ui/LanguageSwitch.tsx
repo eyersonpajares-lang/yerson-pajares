@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { FlagES, FlagUS } from "@/components/ui/Flag";
 import { cn } from "@/lib/utils";
 
 export function LanguageSwitch({ className }: { className?: string }) {
@@ -24,7 +25,7 @@ export function LanguageSwitch({ className }: { className?: string }) {
           lang === "es" ? "text-ink" : "text-muted hover:text-ink"
         )}
       >
-        <span aria-hidden="true">🇪🇸</span> ES
+        <FlagES /> ES
       </button>
       <span className="text-line" aria-hidden="true">
         |
@@ -38,7 +39,7 @@ export function LanguageSwitch({ className }: { className?: string }) {
           lang === "en" ? "text-ink" : "text-muted hover:text-ink"
         )}
       >
-        <span aria-hidden="true">🇺🇸</span> EN
+        <FlagUS /> EN
       </button>
     </div>
   );

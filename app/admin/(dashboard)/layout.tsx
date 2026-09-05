@@ -28,6 +28,9 @@ export default async function AdminDashboardLayout({
             <Link href="/admin/projects" className="pl-3 text-sm hover:text-accent">
               Projects
             </Link>
+            <Link href="/admin/cv" className="pl-3 text-sm hover:text-accent">
+              CV
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4 text-xs text-muted md:mt-10 md:flex-col md:items-start md:gap-3">

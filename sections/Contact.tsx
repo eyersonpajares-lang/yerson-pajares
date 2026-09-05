@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { useCv } from "@/lib/cv/CvProvider";
 import { settings } from "@/lib/data/settings";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -9,6 +10,8 @@ import { Button } from "@/components/ui/Button";
 
 export function Contact() {
   const { t, lang } = useLanguage();
+  const cvUrls = useCv();
+  const cvHref = cvUrls[lang] ? `${cvUrls[lang]}?download` : settings.cv[lang];
 
   return (
     <section id="contact" className="border-t border-line py-24 md:py-32">
@@ -43,7 +46,7 @@ export function Contact() {
             <Button href={settings.linkedinUrl} variant="secondary" external>
               {t.contact.linkedin}
             </Button>
-            <Button href={settings.cv[lang]} variant="ghost">
+            <Button href={cvHref} variant="ghost" external>
               {t.contact.cv} ↓
             </Button>
           </div>

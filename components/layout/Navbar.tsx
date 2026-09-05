@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { useCv } from "@/lib/cv/CvProvider";
 import { settings } from "@/lib/data/settings";
 import { Container } from "@/components/ui/Container";
 import { LanguageSwitch } from "@/components/ui/LanguageSwitch";
@@ -10,6 +11,8 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const { t, lang } = useLanguage();
+  const cvUrls = useCv();
+  const cvHref = cvUrls[lang] ? `${cvUrls[lang]}?download` : settings.cv[lang];
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -73,7 +76,7 @@ export function Navbar() {
         <div className="hidden items-center gap-6 md:flex">
           <LanguageSwitch />
           <a
-            href={settings.cv[lang]}
+            href={cvHref}
             className="inline-flex items-center gap-1.5 border border-ink px-4 py-2 text-sm font-medium transition-colors hover:bg-ink hover:text-paper"
             download
           >

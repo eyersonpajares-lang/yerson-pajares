@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { slugify } from "@/lib/utils";
 import type { ProjectCategory, ProjectSection, ProjectType } from "@/types/content";
 import {
   createProject,
@@ -21,7 +22,7 @@ function readInput(formData: FormData): ProjectInput {
   ) as ProjectSection[];
 
   return {
-    slug: String(formData.get("slug") ?? "").trim(),
+    slug: slugify(String(formData.get("slug") ?? "")),
     type: String(formData.get("type") ?? "selected-work") as ProjectType,
     categories,
     title: String(formData.get("title") ?? "").trim(),

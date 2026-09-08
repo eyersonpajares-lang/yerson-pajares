@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { useCv } from "@/lib/cv/CvProvider";
 import { settings } from "@/lib/data/settings";
@@ -43,6 +44,17 @@ export function Hero() {
             className="animate-reveal flex flex-col gap-8 md:col-span-5"
             style={{ animationDelay: "150ms" }}
           >
+            <div className="relative aspect-square w-20 shrink-0 overflow-hidden rounded-full border border-line md:w-24">
+              <Image
+                src="/images/yerson-pajares.png"
+                alt={settings.displayName}
+                fill
+                priority
+                sizes="96px"
+                className="object-cover"
+              />
+            </div>
+
             <p className="max-w-md text-base leading-relaxed text-ink-soft md:text-[1.05rem]">
               {t.hero.description}
             </p>

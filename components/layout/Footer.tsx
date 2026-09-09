@@ -16,7 +16,7 @@ export function Footer() {
           <p className="mt-1 text-sm text-muted">{settings.positioning}</p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+        <div className="flex flex-col gap-x-6 gap-y-2 text-sm md:items-end">
           <a
             href={settings.linkedinUrl}
             target="_blank"
@@ -25,11 +25,11 @@ export function Footer() {
           >
             LinkedIn
           </a>
-          <a
-            href={`mailto:${settings.email}`}
-            className="text-ink-soft hover:text-ink"
-          >
-            Email
+          <a href={`mailto:${settings.email}`} className="text-ink-soft hover:text-ink">
+            {settings.email}
+          </a>
+          <a href={`tel:${settings.phoneHref}`} className="text-ink-soft hover:text-ink">
+            {settings.phone}
           </a>
         </div>
 

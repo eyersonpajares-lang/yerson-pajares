@@ -8,6 +8,8 @@ export const settings = {
   },
   positioning: "Project Controls · Planning · Construction · AI",
   email: "eyersonpajares@gmail.com",
+  phone: "+51 955 879 836",
+  phoneHref: "+51955879836",
   linkedinUrl: "https://www.linkedin.com/in/yersonpajares",
   cv: {
     es: "/cv/yerson-pajares-cv-es.pdf",

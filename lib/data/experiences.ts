@@ -46,6 +46,8 @@ export const experiences: Experience[] = [
       ],
     },
     tags: ["Primavera P6", "Project Controls", "Electromechanical", "Power BI"],
+    featured: true,
+    relatedIdeaSlug: "power-bi-vs-ai-dashboards",
   },
   {
     slug: "deyfor",
@@ -148,6 +150,22 @@ export const experiences: Experience[] = [
       en: "Planning, contracts, interfaces and infrastructure in a single project.",
     },
     featured: true,
+    keyTakeaway: {
+      es: "Los proyectos con muchas interferencias necesitan que el cronograma trackee explícitamente las dependencias de terceros, no solo las actividades internas.",
+      en: "Interface-heavy projects need their schedule to explicitly track third-party dependencies, not just internal activities.",
+    },
+    usefulFor: {
+      es: [
+        "Estructurar el cronograma alrededor de hitos de interferencia, no solo actividades internas",
+        "Trackear Compensation Events junto con el avance, no como un ejercicio aparte",
+        "Monitorear un diseño Fast Track frente a un frente de construcción en movimiento",
+      ],
+      en: [
+        "Structuring a schedule around interface milestones, not just internal activities",
+        "Tracking Compensation Events alongside progress, not as a separate exercise",
+        "Monitoring a Fast Track design against a moving construction front",
+      ],
+    },
   },
   {
     slug: "jrtv",
@@ -224,43 +242,6 @@ export const experiences: Experience[] = [
     tags: ["Public Infrastructure", "Primavera P6", "Planning", "Education"],
   },
   {
-    slug: "san-roque",
-    company: "San Roque Arquitectura y Construcción",
-    role: { es: "Jefe de Planeamiento", en: "Head of Planning" },
-    period: { es: "Ene 2021 — May 2021", en: "Jan 2021 — May 2021" },
-    project: {
-      es: "Los Balcones del Valle · Teresa Conga · Puente Miraflores",
-      en: "Los Balcones del Valle · Teresa Conga · Puente Miraflores",
-    },
-    work: {
-      es: [
-        "Planificación de proyectos",
-        "Construcción",
-        "Gestión de costos",
-        "Curva S",
-        "Comparación de línea base",
-        "Análisis de productividad",
-        "Planeamiento de materiales",
-        "Sistemas de agua",
-      ],
-      en: [
-        "Project planning",
-        "Construction",
-        "Cost management",
-        "S-Curve",
-        "Baseline comparison",
-        "Productivity analysis",
-        "Material planning",
-        "Water systems",
-      ],
-    },
-    tags: ["Construction", "Real Estate", "Cost Management", "Entrepreneurship"],
-    highlight: {
-      es: "Perfil de constructor y emprendedor.",
-      en: "Builder and entrepreneurial profile.",
-    },
-  },
-  {
     slug: "ugel-celendin-maintenance",
     company: "UGEL Celendín",
     role: { es: "Planificador de Mantenimiento", en: "Maintenance Planner" },
@@ -292,36 +273,5 @@ export const experiences: Experience[] = [
       es: "El punto de partida hacia Jefe de Planeamiento.",
       en: "The starting point toward Head of Planning.",
     },
-  },
-  {
-    slug: "solarcytec",
-    company: "Solarcytec",
-    role: { es: "Co-fundador", en: "Co-founder" },
-    period: { es: "2016 — 2019", en: "2016 — 2019" },
-    focus: {
-      es: ["Energía Renovable", "Emprendimiento", "Ejecución de Proyectos"],
-      en: ["Renewable Energy", "Entrepreneurship", "Project Execution"],
-    },
-    highlight: {
-      es: "700+ termotanques solares instalados",
-      en: "700+ solar water heaters installed",
-    },
-    work: {
-      es: [
-        "Sistemas térmicos solares",
-        "Energía renovable",
-        "Operaciones",
-        "Emprendimiento",
-        "Ejecución",
-      ],
-      en: [
-        "Solar thermal systems",
-        "Renewable energy",
-        "Operations",
-        "Entrepreneurship",
-        "Execution",
-      ],
-    },
-    tags: ["Renewable Energy", "Entrepreneurship", "Execution"],
   },
 ];

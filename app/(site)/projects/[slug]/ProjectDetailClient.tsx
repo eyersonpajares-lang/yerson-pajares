@@ -52,7 +52,7 @@ export function ProjectDetailClient({
             <ArrowGlyph className="inline-block transition-transform duration-200 ease-out group-hover:-translate-x-0.5">
               ←
             </ArrowGlyph>{" "}
-            {t.projectsPage.backToProjects}
+            {t.personalProjects.backToProjects}
           </Link>
         </Reveal>
 
@@ -66,6 +66,17 @@ export function ProjectDetailClient({
           </h1>
           {project.subtitle && (
             <p className="mt-4 text-lg text-ink-soft">{pick(project.subtitle)}</p>
+          )}
+
+          {project.websiteUrl && (
+            <a
+              href={project.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
+            >
+              {t.personalProjects.visitWebsite} ↗
+            </a>
           )}
 
           <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-y border-line py-5">
@@ -181,7 +192,7 @@ export function ProjectDetailClient({
             <div className="md:col-span-4">
               <details className="border border-line md:hidden">
                 <summary className="cursor-pointer px-4 py-3 font-mono text-xs uppercase tracking-wide text-muted">
-                  {t.projectsPage.onThisPage}
+                  {t.personalProjects.onThisPage}
                 </summary>
                 <nav className="flex flex-col gap-1 px-4 pb-4">
                   {project.sections.map((s) => (
@@ -194,7 +205,7 @@ export function ProjectDetailClient({
 
               <nav className="sticky top-28 hidden flex-col gap-2 border-l border-line pl-5 md:flex">
                 <p className="mb-2 font-mono text-xs uppercase tracking-wide text-muted">
-                  {t.projectsPage.onThisPage}
+                  {t.personalProjects.onThisPage}
                 </p>
                 {project.sections.map((s) => (
                   <a
@@ -218,7 +229,7 @@ export function ProjectDetailClient({
             {prev ? (
               <Link href={`/projects/${prev.slug}`} className="group">
                 <p className="font-mono text-xs uppercase tracking-wide text-muted">
-                  ← {t.projectsPage.prevProject}
+                  ← {t.personalProjects.prevProject}
                 </p>
                 <p className="mt-2 font-display text-xl tracking-tight group-hover:text-accent">
                   {prev.title}
@@ -230,7 +241,7 @@ export function ProjectDetailClient({
             {next ? (
               <Link href={`/projects/${next.slug}`} className="group sm:text-right">
                 <p className="font-mono text-xs uppercase tracking-wide text-muted">
-                  {t.projectsPage.nextProject} →
+                  {t.personalProjects.nextProject} →
                 </p>
                 <p className="mt-2 font-display text-xl tracking-tight group-hover:text-accent">
                   {next.title}
@@ -245,7 +256,7 @@ export function ProjectDetailClient({
         {related.length > 0 && (
           <div className="mt-16 border-t border-line pt-10">
             <p className="font-mono text-xs uppercase tracking-wide text-accent">
-              {t.projectsPage.relatedTitle}
+              {t.personalProjects.relatedTitle}
             </p>
             <div className="mt-6 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
               {related.map((item) =>

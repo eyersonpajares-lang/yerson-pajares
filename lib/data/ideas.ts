@@ -19,6 +19,7 @@ export const ideas: IdeaArticle[] = [
       en: "In many projects, the daily site report ends up living inside a WhatsApp chat: photos, voice notes, loose messages from different fronts. It's fast for the supervisor, but expensive for Project Controls, who has to manually reconstruct what progressed, what was restricted, and what resources were used.\n\nThe cost isn't just time — it's information that gets lost, duplicated, or left ambiguous. A structured report, with defined fields for activities, restrictions, resources and progress, doesn't remove the speed of WhatsApp, but it does turn it into data that can be analyzed, cross-checked against Primavera P6, and pushed into a dashboard.",
     },
     tags: ["Project Controls", "Construction Tech", "AI"],
+    relatedProjectSlug: "projexa",
     published: true,
   },
   {
@@ -32,7 +33,7 @@ export const ideas: IdeaArticle[] = [
       en: "Dashboards are only ever as good as the data behind them. The real question isn't the tool — it's how structured the field data is by the time it gets there.",
     },
     date: "2026-07-30",
-    category: "Data",
+    category: "AI & Data",
     readingTime: 5,
     content: {
       es: "Power BI seguirá siendo una herramienta central para Project Controls, pero la conversación está cambiando: ya no se trata solo de construir el dashboard correcto, sino de automatizar cómo llegan los datos a él.\n\nUn modelo de AI puede ayudar a estructurar reportes de campo, detectar restricciones recurrentes o resumir avances, pero no reemplaza el criterio del ingeniero de Project Controls para interpretar esos datos dentro del contexto del proyecto.",
@@ -52,7 +53,7 @@ export const ideas: IdeaArticle[] = [
       en: "A WBS organized by section, tower and activity type lets the schedule actually reflect how construction progresses in the field.",
     },
     date: "2026-06-12",
-    category: "Planning & Scheduling",
+    category: "Planning",
     readingTime: 4,
     content: {
       es: "Para líneas de transmisión, prefiero una WBS jerárquica: tramo → torre → tipo de actividad (cimentación, montaje, tendido, pruebas). Esto permite generar curvas S por tramo, identificar cuellos de botella por frente y facilitar el 3WLA sin perder trazabilidad hacia el cronograma maestro.\n\nEl error común es construir la WBS solo por disciplina, lo que dificulta ver el avance físico real de cada torre.",

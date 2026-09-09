@@ -3,9 +3,9 @@ import { getPublicProjects } from "@/lib/supabase/queries/projects";
 import { ProjectsListClient } from "./ProjectsListClient";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Personal Projects",
   description:
-    "Selected projects, systems and problems in Project Controls, Planning, Construction and AI.",
+    "PROJEXA, Solarcytec and San Roque — things I've built and run outside my day-to-day work.",
 };
 
 export default async function ProjectsPage() {

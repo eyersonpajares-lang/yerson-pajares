@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import type { IdeaArticle } from "@/types/content";
+import type { IdeaArticle, Project } from "@/types/content";
 import { formatDate } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { Kicker } from "@/components/ui/Kicker";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function IdeaDetailClient({ idea }: { idea: IdeaArticle }) {
+export function IdeaDetailClient({
+  idea,
+  relatedProject,
+}: {
+  idea: IdeaArticle;
+  relatedProject: Project | null;
+}) {
   const { t, lang, pick } = useLanguage();
   const paragraphs = pick(idea.content).split("\n\n");
 
@@ -51,6 +57,22 @@ export function IdeaDetailClient({ idea }: { idea: IdeaArticle }) {
               </span>
             ))}
           </div>
+
+          {relatedProject && (
+            <div className="mt-6 border-t border-line pt-6">
+              <p className="font-mono text-xs uppercase tracking-wide text-accent">
+                {t.ideas.relatedProject}
+              </p>
+              <Link
+                href={`/projects/${relatedProject.slug}`}
+                className="group mt-2 inline-block"
+              >
+                <span className="font-display text-xl tracking-tight group-hover:text-accent">
+                  {relatedProject.title} →
+                </span>
+              </Link>
+            </div>
+          )}
         </Reveal>
       </Container>
     </div>

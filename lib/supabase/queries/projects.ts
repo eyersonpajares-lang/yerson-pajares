@@ -19,6 +19,7 @@ type ProjectRow = {
   client: string | null;
   cover: string | null;
   gallery: string[] | null;
+  website_url: string | null;
   short_description_es: string | null;
   short_description_en: string | null;
   sections: ProjectSection[] | null;
@@ -52,6 +53,7 @@ function rowToProject(row: ProjectRow): Project {
       row.role_es || row.role_en ? { es: row.role_es ?? "", en: row.role_en ?? "" } : undefined,
     client: row.client ?? undefined,
     cover: row.cover ?? undefined,
+    websiteUrl: row.website_url ?? undefined,
     shortDescription: {
       es: row.short_description_es ?? "",
       en: row.short_description_en ?? "",
@@ -68,7 +70,7 @@ function rowToProject(row: ProjectRow): Project {
 }
 
 const SELECT_COLUMNS =
-  "id, slug, type, categories, title, subtitle_es, subtitle_en, category_label, year, status_es, status_en, role_es, role_en, client, cover, gallery, short_description_es, short_description_en, sections, tools, tags, featured, sort_order, has_detail, related_slugs, published";
+  "id, slug, type, categories, title, subtitle_es, subtitle_en, category_label, year, status_es, status_en, role_es, role_en, client, cover, gallery, website_url, short_description_es, short_description_en, sections, tools, tags, featured, sort_order, has_detail, related_slugs, published";
 
 /**
  * Public-facing: only rows visitors are allowed to see (RLS-backed).
@@ -150,6 +152,7 @@ export type ProjectInput = {
   roleEs: string;
   roleEn: string;
   client: string;
+  websiteUrl: string;
   shortDescriptionEs: string;
   shortDescriptionEn: string;
   sections: ProjectSection[];
@@ -176,6 +179,7 @@ function inputToRow(input: ProjectInput) {
     role_es: input.roleEs || null,
     role_en: input.roleEn || null,
     client: input.client || null,
+    website_url: input.websiteUrl || null,
     short_description_es: input.shortDescriptionEs || null,
     short_description_en: input.shortDescriptionEn || null,
     sections: input.sections,

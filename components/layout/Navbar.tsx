@@ -35,11 +35,9 @@ export function Navbar() {
   }, [open]);
 
   const navItems = [
-    { label: t.nav.home, href: "/" },
-    { label: t.nav.work, href: "/#experience" },
+    { label: t.nav.experience, href: "/experience" },
     { label: t.nav.projects, href: "/projects" },
     { label: t.nav.ideas, href: "/ideas" },
-    { label: t.nav.about, href: "/#vision" },
   ];
 
   return (
@@ -125,7 +123,7 @@ export function Navbar() {
             <div className="flex flex-col gap-6 pt-10">
               <LanguageSwitch className="text-sm" />
               <a
-                href={settings.cv[lang]}
+                href={cvHref}
                 className="inline-flex w-full items-center justify-center gap-1.5 border border-ink px-5 py-4 text-sm font-medium"
                 download
               >

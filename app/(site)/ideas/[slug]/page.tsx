@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ideas } from "@/lib/data/ideas";
+import { getPublicProjectBySlug } from "@/lib/supabase/queries/projects";
 import { IdeaDetailClient } from "./IdeaDetailClient";
 
 export function generateStaticParams() {
@@ -32,5 +33,9 @@ export default async function IdeaDetailPage(props: PageProps<"/ideas/[slug]">) 
 
   if (!idea) notFound();
 
-  return <IdeaDetailClient idea={idea} />;
+  const relatedProject = idea.relatedProjectSlug
+    ? await getPublicProjectBySlug(idea.relatedProjectSlug)
+    : null;
+
+  return <IdeaDetailClient idea={idea} relatedProject={relatedProject} />;
 }

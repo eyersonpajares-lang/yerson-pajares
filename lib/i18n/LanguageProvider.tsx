@@ -26,21 +26,18 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "yp-lang";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("es");
+  // EN is the deliberate default — the site opens in English regardless of
+  // browser locale. Only a returning visitor's own stored choice overrides it.
+  const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
     // Reads localStorage only after mount (deliberately, so the server-
-    // rendered "es" default matches the client's first paint and hydrates
+    // rendered "en" default matches the client's first paint and hydrates
     // cleanly) — the resulting one-time re-render is expected here.
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "es" || stored === "en") {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setLangState(stored);
-      return;
-    }
-    const browserLang = window.navigator.language?.toLowerCase();
-    if (browserLang && !browserLang.startsWith("es")) {
-      setLangState("en");
     }
   }, []);
 

@@ -35,6 +35,7 @@ function readInput(formData: FormData): ProjectInput {
     roleEs: String(formData.get("roleEs") ?? ""),
     roleEn: String(formData.get("roleEn") ?? ""),
     client: String(formData.get("client") ?? ""),
+    websiteUrl: String(formData.get("websiteUrl") ?? "").trim(),
     shortDescriptionEs: String(formData.get("shortDescriptionEs") ?? ""),
     shortDescriptionEn: String(formData.get("shortDescriptionEn") ?? ""),
     sections,

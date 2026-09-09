@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     url: settings.site.url,
     siteName: settings.displayName,
     type: "website",
-    locale: "es_PE",
-    alternateLocale: "en_US",
+    locale: "en_US",
+    alternateLocale: "es_PE",
   },
   twitter: {
     card: "summary_large_image",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="es"
+      lang="en"
       className={`${fraunces.variable} ${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">{children}</body>

@@ -64,7 +64,7 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
-              <Button href="/#work" variant="primary">
+              <Button href="/#experience" variant="primary">
                 {t.hero.ctaWork} →
               </Button>
               <Button href={cvHref} variant="secondary" external>

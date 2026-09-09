@@ -155,7 +155,14 @@ export function ProjectForm({
         <Field label="Role (EN)" name="roleEn" defaultValue={project?.role?.en} />
       </div>
 
-      <Field label="Client" name="client" defaultValue={project?.client} />
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Field label="Client" name="client" defaultValue={project?.client} />
+        <Field
+          label="Website URL (real link only — leave blank if none)"
+          name="websiteUrl"
+          defaultValue={project?.websiteUrl}
+        />
+      </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <TextArea

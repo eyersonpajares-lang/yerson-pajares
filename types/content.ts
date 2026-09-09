@@ -23,6 +23,12 @@ export type Experience = {
   tags: string[];
   highlight?: Localized;
   featured?: boolean;
+  /** A short "what I learned" line — only worth writing for a few standout entries. */
+  keyTakeaway?: Localized;
+  /** Applicable elsewhere: a method, a lesson, a way of structuring information. */
+  usefulFor?: LocalizedList;
+  /** Slug of an /ideas article that expands on this experience — shown as "Related idea". */
+  relatedIdeaSlug?: string;
 };
 
 /**
@@ -87,6 +93,8 @@ export type Project = {
   order: number;
   hasDetail?: boolean;
   relatedSlugs?: string[];
+  /** Real, live URL only — never a placeholder/invented one. Leave unset until there's a real link. */
+  websiteUrl?: string;
   published: boolean;
 };
 
@@ -103,6 +111,8 @@ export type IdeaArticle = {
   readingTime: number;
   content: Localized;
   tags: string[];
+  /** Slug of a /projects entry this idea grew out of — shown as "Related project". */
+  relatedProjectSlug?: string;
   published: boolean;
 };
 

@@ -1,40 +1,49 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAdminProjects } from "@/lib/supabase/queries/projects";
+import { getAdminExperiences } from "@/lib/supabase/queries/experiences";
 
 export const metadata: Metadata = {
   title: "Admin",
   robots: { index: false, follow: false },
 };
 
-const roadmap = [
-  "Experience",
-  "Ideas",
-  "Work Log",
-  "Now",
-  "LinkedIn",
-  "Education",
-  "Media",
-  "Settings",
-];
+const roadmap = ["Ideas", "Media", "Settings"];
 
 export default async function AdminDashboardPage() {
-  const projects = await getAdminProjects();
-  const published = projects.filter((p) => p.published).length;
+  const [projects, experiences] = await Promise.all([
+    getAdminProjects(),
+    getAdminExperiences(),
+  ]);
+  const publishedProjects = projects.filter((p) => p.published).length;
+  const publishedExperiences = experiences.filter((e) => e.published).length;
 
   return (
     <div className="max-w-2xl">
       <p className="font-mono text-xs uppercase tracking-wide text-accent">Dashboard</p>
       <h1 className="mt-3 font-display text-3xl tracking-tight">Sesión iniciada.</h1>
       <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-        Projects ya se administra completamente desde aquí — crear, editar, publicar y
-        despublicar sin tocar código. El resto del panel se construye en los próximos pasos.
+        Experience y Projects ya se administran completamente desde aquí — crear, editar,
+        publicar y despublicar sin tocar código.
       </p>
+
+      <div className="mt-10 border-t border-line pt-6">
+        <p className="font-mono text-xs uppercase tracking-wide text-muted">Experience</p>
+        <p className="mt-2 text-sm text-ink-soft">
+          {publishedExperiences} publicadas de {experiences.length} totales.
+        </p>
+        <Link
+          href="/admin/experience"
+          className="mt-3 inline-block text-sm font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
+        >
+          Administrar experience →
+        </Link>
+      </div>
 
       <div className="mt-10 border-t border-line pt-6">
         <p className="font-mono text-xs uppercase tracking-wide text-muted">Projects</p>
         <p className="mt-2 text-sm text-ink-soft">
-          {published} publicados de {projects.length} totales.
+          {publishedProjects} publicados de {projects.length} totales.
         </p>
         <Link
           href="/admin/projects"

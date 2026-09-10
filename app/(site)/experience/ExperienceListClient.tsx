@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { experiences } from "@/lib/data/experiences";
+import type { Experience } from "@/types/content";
 import { Container } from "@/components/ui/Container";
 import { Kicker } from "@/components/ui/Kicker";
 import { Reveal } from "@/components/ui/Reveal";
 import { ExperienceCard } from "@/components/experience/ExperienceCard";
 import { ExperienceDetailPanel } from "@/components/experience/ExperienceDetailPanel";
 
-export function ExperienceListClient() {
+export function ExperienceListClient({ experiences }: { experiences: Experience[] }) {
   const { t } = useLanguage();
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const active = experiences.find((e) => e.slug === openSlug) ?? null;

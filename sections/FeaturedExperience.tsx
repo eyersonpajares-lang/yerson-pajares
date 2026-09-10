@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { experiences } from "@/lib/data/experiences";
+import type { Experience } from "@/types/content";
 import { Container } from "@/components/ui/Container";
 import { Kicker } from "@/components/ui/Kicker";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { ExperienceCard } from "@/components/experience/ExperienceCard";
 import { ExperienceDetailPanel } from "@/components/experience/ExperienceDetailPanel";
 
-export function FeaturedExperience() {
+export function FeaturedExperience({ experiences }: { experiences: Experience[] }) {
   const { t } = useLanguage();
   const featured = experiences.filter((e) => e.featured).slice(0, 2);
   const [openSlug, setOpenSlug] = useState<string | null>(null);

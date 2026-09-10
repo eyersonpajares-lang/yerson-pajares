@@ -25,6 +25,9 @@ export default async function AdminDashboardLayout({
             <Link href="/admin" className="pl-3 text-sm hover:text-accent">
               Dashboard
             </Link>
+            <Link href="/admin/experience" className="pl-3 text-sm hover:text-accent">
+              Experience
+            </Link>
             <Link href="/admin/projects" className="pl-3 text-sm hover:text-accent">
               Projects
             </Link>

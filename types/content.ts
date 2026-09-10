@@ -11,6 +11,7 @@ export type LocalizedList = {
 };
 
 export type Experience = {
+  /** DB row id — also used as the React key / modal identity (no public URL exists per-experience). */
   slug: string;
   company: string;
   role: Localized;
@@ -29,6 +30,8 @@ export type Experience = {
   usefulFor?: LocalizedList;
   /** Slug of an /ideas article that expands on this experience — shown as "Related idea". */
   relatedIdeaSlug?: string;
+  order: number;
+  published: boolean;
 };
 
 /**

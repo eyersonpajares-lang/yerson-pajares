@@ -4,14 +4,18 @@ import { PersonalProjectsPreview } from "@/sections/PersonalProjectsPreview";
 import { LatestIdeas } from "@/sections/LatestIdeas";
 import { Contact } from "@/sections/Contact";
 import { getPublicProjects } from "@/lib/supabase/queries/projects";
+import { getPublicExperiences } from "@/lib/supabase/queries/experiences";
 
 export default async function Home() {
-  const projects = await getPublicProjects();
+  const [projects, experiences] = await Promise.all([
+    getPublicProjects(),
+    getPublicExperiences(),
+  ]);
 
   return (
     <>
       <Hero />
-      <FeaturedExperience />
+      <FeaturedExperience experiences={experiences} />
       <PersonalProjectsPreview projects={projects} />
       <LatestIdeas />
       <Contact />

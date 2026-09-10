@@ -4,8 +4,8 @@ export const dictionaries = {
   es: {
     nav: {
       home: "Inicio",
-      experience: "Experience",
-      projects: "Personal Projects",
+      experience: "Experiencia",
+      projects: "Proyectos personales",
       ideas: "Ideas",
       downloadCv: "Descargar CV",
     },
@@ -18,14 +18,14 @@ export const dictionaries = {
       ctaContact: "Contactarme",
     },
     featuredExperience: {
-      kicker: "What I've worked on",
-      title: "Featured experience",
+      kicker: "En qué he trabajado",
+      title: "Experiencia destacada",
       viewExperience: "Ver experiencia",
       viewAll: "Ver toda mi experiencia",
     },
     experiencePage: {
-      kicker: "Experience",
-      title: "What I've worked on.",
+      kicker: "Experiencia",
+      title: "En qué he trabajado.",
       description: "Un barrido rápido por los proyectos y empresas donde he participado.",
       explore: "Explorar experiencia",
       close: "Cerrar",
@@ -38,8 +38,8 @@ export const dictionaries = {
       relatedIdea: "Idea relacionada",
     },
     personalProjects: {
-      kicker: "What I've built",
-      title: "Personal Projects",
+      kicker: "Qué he construido",
+      title: "Proyectos personales",
       description:
         "Cosas que construyo y opero fuera de mi trabajo del día a día — tecnología, construcción y negocio.",
       explore: "Explorar proyecto",
@@ -49,10 +49,10 @@ export const dictionaries = {
       prevProject: "Proyecto anterior",
       nextProject: "Siguiente proyecto",
       onThisPage: "En esta página",
-      backToProjects: "Personal Projects",
+      backToProjects: "Proyectos personales",
     },
     ideas: {
-      kicker: "What I'm learning",
+      kicker: "Qué estoy aprendiendo",
       title: "Ideas",
       description: "Ideas, aprendizajes y métodos que pueden servir en tus propios proyectos.",
       filters: {

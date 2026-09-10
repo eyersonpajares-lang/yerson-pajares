@@ -18,28 +18,30 @@ export function LanguageSwitch({ className }: { className?: string }) {
     >
       <button
         type="button"
-        onClick={() => setLang("es")}
-        aria-pressed={lang === "es"}
+        onClick={() => setLang("en")}
+        aria-pressed={lang === "en"}
+        title="Switch to English"
         className={cn(
-          "inline-flex items-center gap-1 px-1.5 py-0.5 transition-colors",
-          lang === "es" ? "text-ink" : "text-muted hover:text-ink"
+          "inline-flex cursor-pointer items-center gap-1 rounded px-1.5 py-1 transition-colors hover:bg-paper-dim",
+          lang === "en" ? "text-ink" : "text-muted hover:text-ink"
         )}
       >
-        <FlagES /> ES
+        <FlagUS /> EN
       </button>
       <span className="text-line" aria-hidden="true">
         |
       </span>
       <button
         type="button"
-        onClick={() => setLang("en")}
-        aria-pressed={lang === "en"}
+        onClick={() => setLang("es")}
+        aria-pressed={lang === "es"}
+        title="Cambiar a español"
         className={cn(
-          "inline-flex items-center gap-1 px-1.5 py-0.5 transition-colors",
-          lang === "en" ? "text-ink" : "text-muted hover:text-ink"
+          "inline-flex cursor-pointer items-center gap-1 rounded px-1.5 py-1 transition-colors hover:bg-paper-dim",
+          lang === "es" ? "text-ink" : "text-muted hover:text-ink"
         )}
       >
-        <FlagUS /> EN
+        <FlagES /> ES
       </button>
     </div>
   );

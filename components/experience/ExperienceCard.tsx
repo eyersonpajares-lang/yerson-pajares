@@ -26,10 +26,10 @@ export function ExperienceCard({
         {pick(experience.period)}
       </p>
       <h3 className="mt-2 font-display text-2xl tracking-tight md:text-3xl">
-        {experience.company}
+        {experience.project ? pick(experience.project) : experience.company}
       </h3>
       {experience.project && (
-        <p className="mt-1 text-sm text-ink-soft">{pick(experience.project)}</p>
+        <p className="mt-1 text-sm text-ink-soft">{experience.company}</p>
       )}
       <p className="mt-1 font-mono text-xs uppercase tracking-wide text-accent">
         {pick(experience.role)}

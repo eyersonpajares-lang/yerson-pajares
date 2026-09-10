@@ -77,8 +77,11 @@ export function ExperienceDetailPanel({
               {pick(experience.period)}
             </p>
             <h2 className="mt-3 font-display text-3xl tracking-tight md:text-4xl">
-              {experience.company}
+              {experience.project ? pick(experience.project) : experience.company}
             </h2>
+            {experience.project && (
+              <p className="mt-1 text-sm text-muted">{experience.company}</p>
+            )}
             <p className="mt-2 text-lg text-ink-soft">{pick(experience.role)}</p>
             {experience.client && (
               <p className="mt-1 text-sm text-muted">{experience.client}</p>

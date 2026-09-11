@@ -15,6 +15,7 @@ export function MediaFrame({
   className,
   sizes = "(min-width: 768px) 50vw, 100vw",
   priority,
+  fit = "cover",
 }: {
   src?: string;
   alt: string;
@@ -22,18 +23,31 @@ export function MediaFrame({
   className?: string;
   sizes?: string;
   priority?: boolean;
+  /** "contain" keeps the whole image visible (e.g. a logo) instead of cropping to fill the frame. */
+  fit?: "cover" | "contain";
 }) {
   if (src) {
     return (
-      <div className={cn("relative overflow-hidden bg-paper-dim", className)}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={sizes}
-          priority={priority}
-          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
-        />
+      <div
+        className={cn(
+          "relative overflow-hidden bg-paper-dim",
+          fit === "contain" && "border border-line",
+          className
+        )}
+      >
+        <div className={fit === "contain" ? "absolute inset-8 md:inset-12" : "absolute inset-0"}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            priority={priority}
+            className={cn(
+              "transition-transform duration-300 ease-out group-hover:scale-[1.02]",
+              fit === "contain" ? "object-contain" : "object-cover"
+            )}
+          />
+        </div>
       </div>
     );
   }

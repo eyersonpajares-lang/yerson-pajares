@@ -112,6 +112,7 @@ export function ProjectDetailClient({
             src={project.cover}
             index="01"
             alt={project.title}
+            fit="contain"
             className="aspect-[16/9] w-full"
           />
         </Reveal>

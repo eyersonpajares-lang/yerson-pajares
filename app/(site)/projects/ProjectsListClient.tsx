@@ -53,6 +53,7 @@ function ProjectRow({
       src={project.cover}
       index={index}
       alt={project.title}
+      fit="contain"
       className="aspect-[16/10] md:col-span-6"
     />
   );

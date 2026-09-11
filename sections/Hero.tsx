@@ -28,9 +28,22 @@ export function Hero() {
           {settings.positioning}
         </p>
 
-        <h1 className="animate-reveal mt-6 font-display text-[13vw] font-medium leading-[0.92] tracking-tight sm:text-7xl md:text-8xl lg:text-[7.5rem]">
-          {settings.displayName}
-        </h1>
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="animate-reveal mt-6 font-display text-[13vw] font-medium leading-[0.92] tracking-tight sm:text-7xl md:text-8xl lg:text-[7.5rem]">
+            {settings.displayName}
+          </h1>
+
+          <div className="relative aspect-square w-14 shrink-0 overflow-hidden rounded-full border border-line sm:w-20 md:w-24">
+            <Image
+              src="/images/yerson-pajares.png"
+              alt={settings.displayName}
+              fill
+              priority
+              sizes="96px"
+              className="object-cover"
+            />
+          </div>
+        </div>
 
         <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:gap-8">
           <p
@@ -44,17 +57,6 @@ export function Hero() {
             className="animate-reveal flex flex-col gap-8 md:col-span-5"
             style={{ animationDelay: "150ms" }}
           >
-            <div className="relative aspect-square w-20 shrink-0 overflow-hidden rounded-full border border-line md:w-24">
-              <Image
-                src="/images/yerson-pajares.png"
-                alt={settings.displayName}
-                fill
-                priority
-                sizes="96px"
-                className="object-cover"
-              />
-            </div>
-
             <p className="max-w-md text-base leading-relaxed text-ink-soft md:text-[1.05rem]">
               {t.hero.description}
             </p>

@@ -27,27 +27,38 @@ export function MediaFrame({
   fit?: "cover" | "contain";
 }) {
   if (src) {
-    return (
-      <div
-        className={cn(
-          "relative overflow-hidden bg-paper-dim",
-          fit === "contain" && "border border-line",
-          className
-        )}
-      >
-        <div className={fit === "contain" ? "absolute inset-8 md:inset-12" : "absolute inset-0"}>
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            sizes={sizes}
-            priority={priority}
-            className={cn(
-              "transition-transform duration-300 ease-out group-hover:scale-[1.02]",
-              fit === "contain" ? "object-contain" : "object-cover"
-            )}
-          />
+    if (fit === "contain") {
+      return (
+        <div
+          className={cn(
+            "relative flex items-center justify-center overflow-hidden border border-line bg-paper-dim p-8",
+            className
+          )}
+        >
+          <div className="relative aspect-square w-full max-w-[200px] md:max-w-[240px]">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              sizes="240px"
+              priority={priority}
+              className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+            />
+          </div>
         </div>
+      );
+    }
+
+    return (
+      <div className={cn("relative overflow-hidden bg-paper-dim", className)}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={sizes}
+          priority={priority}
+          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+        />
       </div>
     );
   }

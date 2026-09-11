@@ -29,18 +29,13 @@ export function MediaFrame({
   if (src) {
     if (fit === "contain") {
       return (
-        <div
-          className={cn(
-            "relative flex items-center justify-center overflow-hidden border border-line bg-paper-dim p-8",
-            className
-          )}
-        >
-          <div className="relative aspect-square w-full max-w-[200px] md:max-w-[240px]">
+        <div className={cn("flex items-center justify-center", className)}>
+          <div className="relative aspect-square w-[160px] shrink-0 overflow-hidden border border-line bg-paper-dim p-6 sm:w-[180px] md:w-[200px] md:p-7">
             <Image
               src={src}
               alt={alt}
               fill
-              sizes="240px"
+              sizes="200px"
               priority={priority}
               className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.02]"
             />

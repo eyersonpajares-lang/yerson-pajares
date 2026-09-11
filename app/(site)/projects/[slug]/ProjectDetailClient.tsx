@@ -113,7 +113,7 @@ export function ProjectDetailClient({
             index="01"
             alt={project.title}
             fit="contain"
-            className="aspect-[16/9] w-full"
+            className={project.cover ? "w-full" : "aspect-[16/9] w-full"}
           />
         </Reveal>
 

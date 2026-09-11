@@ -37,7 +37,7 @@ export function PersonalProjectsPreview({ projects }: { projects: Project[] }) {
                   index={String(i + 1).padStart(2, "0")}
                   alt={project.title}
                   fit="contain"
-                  className="aspect-[4/3] w-full"
+                  className={project.cover ? "w-full" : "aspect-[4/3] w-full"}
                 />
                 <p className="mt-4 font-mono text-xs uppercase tracking-wide text-accent">
                   {project.category}

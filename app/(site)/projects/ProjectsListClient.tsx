@@ -8,6 +8,7 @@ import { Kicker } from "@/components/ui/Kicker";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowGlyph } from "@/components/ui/ArrowGlyph";
 import { MediaFrame } from "@/components/ui/MediaFrame";
+import { isDownloadableUrl } from "@/lib/utils";
 
 export function ProjectsListClient({ projects }: { projects: Project[] }) {
   const { t } = useLanguage();
@@ -72,15 +73,25 @@ function ProjectRow({
         >
           {t.personalProjects.explore} <ArrowGlyph>→</ArrowGlyph>
         </Link>
-        {project.websiteUrl && (
+        {project.websiteUrl && isDownloadableUrl(project.websiteUrl) ? (
           <a
             href={project.websiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            download
             className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-soft underline decoration-line underline-offset-4 hover:text-ink hover:decoration-accent"
           >
-            {t.personalProjects.visitWebsite} ↗
+            {t.personalProjects.download} ↓
           </a>
+        ) : (
+          project.websiteUrl && (
+            <a
+              href={project.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-soft underline decoration-line underline-offset-4 hover:text-ink hover:decoration-accent"
+            >
+              {t.personalProjects.visitWebsite} ↗
+            </a>
+          )
         )}
       </div>
     </div>

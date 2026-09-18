@@ -9,7 +9,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowGlyph } from "@/components/ui/ArrowGlyph";
 import { MediaFrame } from "@/components/ui/MediaFrame";
-import { cn } from "@/lib/utils";
+import { cn, isDownloadableUrl } from "@/lib/utils";
 
 export function ProjectDetailClient({
   project,
@@ -68,15 +68,25 @@ export function ProjectDetailClient({
             <p className="mt-4 text-lg text-ink-soft">{pick(project.subtitle)}</p>
           )}
 
-          {project.websiteUrl && (
+          {project.websiteUrl && isDownloadableUrl(project.websiteUrl) ? (
             <a
               href={project.websiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              download
               className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
             >
-              {t.personalProjects.visitWebsite} ↗
+              {t.personalProjects.download} ↓
             </a>
+          ) : (
+            project.websiteUrl && (
+              <a
+                href={project.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
+              >
+                {t.personalProjects.visitWebsite} ↗
+              </a>
+            )
           )}
 
           <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-y border-line py-5">

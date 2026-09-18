@@ -14,6 +14,14 @@ export function slugify(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+const DOWNLOADABLE_EXTENSIONS = [".zip", ".pdf", ".dmg", ".exe", ".pkg"];
+
+/** True for a project "website" link that's actually a file to download (a skill .zip, an installer), not a page to visit. */
+export function isDownloadableUrl(url: string): boolean {
+  const path = url.split(/[?#]/)[0].toLowerCase();
+  return DOWNLOADABLE_EXTENSIONS.some((ext) => path.endsWith(ext));
+}
+
 export function formatDate(date: string, lang: "es" | "en") {
   const d = new Date(`${date}T00:00:00`);
   return new Intl.DateTimeFormat(lang === "es" ? "es-PE" : "en-US", {
